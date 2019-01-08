@@ -1,0 +1,53 @@
+{
+    "name": "webcomp-starter-kit",
+    "version": "1.0.0",
+    "description": "A webcomponent starter kit that contains everything you need to direct code your webcomp and not take 2 days for the setup...",
+    "main": "index.js",
+    "scripts": {
+        "test": "npm run build && karma",
+        "build": "npm run clean && webpack",
+        "start": "webpack-dev-server",
+        "clean": "rimraf dist"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ylerjen/webcomp-starter-kit.git"
+    },
+    "keywords": [
+        "webcomponent",
+        "starter-kit",
+        "shadow-dom",
+        "custom-element"
+    ],
+    "author": "Yann Lerjen <ylerjen@vaudoise.ch>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ylerjen/webcomp-starter-kit/issues"
+    },
+    "homepage": "https://github.com/ylerjen/webcomp-starter-kit#readme",
+    "devDependencies": {
+        "@babel/core": "^7.1.6",
+        "@babel/preset-env": "^7.1.6",
+        "babel-loader": "^8.0.4",
+        "copy-webpack-plugin": "^4.6.0",
+        "css-loader": "^1.0.1",
+        "html-loader": "^0.5.5",
+        "jasmine-core": "^3.3.0",
+        "karma": "^3.1.1",
+        "karma-chrome-launcher": "^2.2.0",
+        "karma-firefox-launcher": "^1.1.0",
+        "karma-ie-launcher": "^1.0.0",
+        "karma-jasmine": "^2.0.1",
+        "node-sass": "^4.10.0",
+        "rimraf": "^2.6.2",
+        "sass-loader": "^7.1.0",
+        "style-loader": "^0.23.1",
+        "webpack": "^4.26.1",
+        "webpack-cli": "^3.1.2",
+        "webpack-dev-server": "^3.1.10"
+    },
+    "dependencies": {
+        "@babel/polyfill": "^7.0.0",
+        "document-register-element": "^1.13.1"
+    }
+}
