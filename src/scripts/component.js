@@ -1,5 +1,5 @@
-import componentDom from './../templates/component.html';
-import componentStyles from './../styles/component.scss';
+import componentDom from '../templates/component.html';
+import componentStyles from '../styles/component.scss';
 
 function createTemplate() {    
     const tplWrapper = document.createElement('template');    
@@ -7,17 +7,17 @@ function createTemplate() {
     return tplWrapper;
 }
 
+const eventsAttributeName = 'data';
+
 /**
- * TODO jsdoc
- * 
- * @class ChangeMe
+ * The timeline component displays a list of events with a vertical timeline layout
  */
-export class ChangeMe extends HTMLElement {
+export class TimeLine extends HTMLElement {
     /**
      * @static
      * Returns a list of observed attributes
      */
-    static get observedAttributes() { return []; }
+    static get observedAttributes() { return [eventsAttributeName]; }
 
     /**
      * Constructor of the class. It's called when an instance of the element is created or upgraded.
@@ -29,7 +29,7 @@ export class ChangeMe extends HTMLElement {
         const content = createTemplate().content;
         const shadowRoot = this.attachShadow({mode: 'open'});
         shadowRoot.appendChild(content.cloneNode(true));
-        this.innerHTML = '<h1>I\'m your Web-Component.</h1><p>Change me in <code>src/scripts/component.js</code></p>';
+
     }
 
     /**
@@ -57,18 +57,67 @@ export class ChangeMe extends HTMLElement {
      * @see observedAttributes
      */
     attributeChangedCallback(attrName, oldVal, newVal) {
-
+        if (attrName === eventsAttributeName) {
+            let eventList;
+            if (typeof newVal === 'string') {
+                try {
+                    eventList = JSON.parse(newVal);
+                } catch(e) {
+                    // webcomponent should fail silently
+                }
+            }
+            if (Array.isArray(eventList)) {
+                this.setEvents(eventList);
+            }
+        }
     }
 
-    get dummy() {
-        return 'woot';
+    setEvents(eventList) {
+        this.emptyTimelineView();
+        this._events = eventList;
+        eventList.forEach(event => {
+            event.date = new Date(event.date);
+            this.shadowRoot.querySelector('.timeline__container').appendChild(this.createBlock(event));
+        });
+    }
+
+    emptyTimelineView() {
+        this.shadowRoot.querySelector('.timeline__container').innerHTML = "";
+    }
+
+    /**
+     * Create the block from the content
+     * @param {object} data - is the data describing an event in the timeline
+     *     @param {date} data.date - the date of the event.
+     *     @param {string} data.title - the title of the event.
+     *     @param {string} data.icon - the icon for the event.
+     *     @param {string} data.bgColor - the pill's background-color for the event.
+     *     @param {string} data.summary - the summary of the event.
+     *     @param {string} [data.link] - the url to the detail of the event.
+     */
+    createBlock(data) {
+        const content = document.importNode(createTemplate().content, true);
+        const block = content.querySelector('.timeline__block');        
+        block.querySelector('.timeline__date').innerHTML = data.date.toLocaleDateString();
+        block.querySelector('.timeline__title').innerHTML = data.title;
+        block.querySelector('.timeline__description').innerHTML = data.summary;
+        const imgBlock = block.querySelector('.timeline__pill');
+        imgBlock.innerHTML = data.icon || '&#9787;'
+        imgBlock.style.backgroundColor = '#c71cf5';
+
+        const btn = block.querySelector('.timeline__read-more');
+        if (data.link) {
+            btn.innerHTML = 'Read more...';
+            btn.setAttribute('href', data.link);
+        } else {
+            btn.parentNode.removeChild(btn);
+        }
+
+        return block;
     }
 }
   
 export function defineCustomElement() {
     // define the web component for a standard HTMLElement extension
-    customElements.define('change-me', ChangeMe);
-    
-    // but if you extend a specific element like HTMLButtonElement you'll need the following declaration instead.
-    // customElements.define('change-me', ChangeMe, {extends: 'button'});
+    customElements.define('time-line', TimeLine);
 }

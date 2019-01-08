@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>WebComponent</title>
-</head>
-<body>
-    <h1>This is the page where you can test your webcomponent.</h1>
-    <p>Customize it to test the render of your WebComponent</p>
-
-    <change-me></change-me>
-
-    <!--<script src="vendor/document-register-element.js"></script>-->
-    <script src="bundle.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Timeline WebComponent</title>
+        <style>
+            .timeline__wrapper {
+                height: 50vh;
+                overflow: hidden;
+                overflow-y: scroll;
+                background-color: #eee;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Timeline WebComponent</h1>
+        <div class="timeline__wrapper">
+            <time-line data='[{"date":"2018-12-31", "title": "Hello", "summary": "Hello world"}, {"date":"2019-12-31", "title": "coucou", "summary": "description"}]'></time-line>
+        </div>
+        <!--<script src="vendor/document-register-element.js"></script>-->
+        <script src="bundle.js"></script>
+    </body>
 </html>

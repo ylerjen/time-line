@@ -1,3 +1,277 @@
-h1 {
-    color: red;
+// -----------------------------------------
+// Patterns - reusable parts of our design
+// -----------------------------------------
+
+$device-md-size: 800px;
+
+@media only screen and (min-width: $device-md-size) {
+    .is-hidden {
+        visibility: hidden;
+    }
+}
+
+.timeline__filter {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    label {
+        margin: 0 1em;
+    }
+}
+
+// -------------------------------- 
+// Vertical Timeline
+// --------------------------------
+
+.timeline {
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.timeline__container {
+    position: relative;
+    width: 90%;
+    max-width: $device-md-size;
+    margin: 0 auto;
+    padding: 1em 0;
+
+    // this is the vertical line
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 18px;
+        height: 100%;
+        width: 4px;
+        background: #d7e4ed;
+    }
+}
+
+@media only screen and (min-width: $device-md-size) {
+    .timeline__container::before {
+        left: 50%;
+        margin-left: -2px;
+    }
+}
+
+.timeline__block {
+    position: relative;
+    margin: 1em 0;
+
+    &:after {
+        // clearfix
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.timeline__pill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+    color: white;
+}
+
+@media only screen and (min-width: $device-md-size) {
+    .timeline__pill {
+        left: 50%;
+        margin-left: -20px;
+        transform: translateZ(0); // Force Hardware Acceleration
+    }
+    .timeline__pill.timeline__pill--bounce-in {
+        visibility: visible;
+        animation: bounce-1 0.6s;
+    }
+}
+
+.timeline__content {
+    position: relative;
+    margin-left: 60px;
+    background: white;
+    border-radius: 0.25em;
+    padding: 0 1em .5em;
+    box-shadow: 0 3px 5px lightgrey;
+
+    &:after {
+        // clearfix
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    &::before {
+        // triangle next to content block
+        content: '';
+        position: absolute;
+        top: 16px;
+        right: 100%;
+        height: 0;
+        width: 0;
+        border: 7px solid transparent;
+        border-right: 7px solid white;
+    }
+}
+
+.timeline__title {
+    font-size: 1rem;
+    margin: 0;
+    padding: 0.8em 0;
+    display: inline-block;
+}
+
+.timeline__content,
+.timeline__read-more {
+    font-size: .8rem;
+}
+
+.timeline__description {
+    margin: 0;
+    margin-bottom: 8px;
+}
+
+.timeline__read-more,
+.timeline__date {
+    display: inline-block;
+}
+
+.timeline__read-more {
+    background: #acb7c0;
+    color: white;
+    float: right;
+    padding: .8em 1em;
+    margin-bottom: 1em;
+    border-radius: 0.25em;
+    
+    &:hover {
+        background-color: #bac4cb;
+    }
+}
+
+.timeline__date {
+    color: grey;
+    margin: 0;
+    padding: .8em 0;
+}
+
+@media only screen and (min-width: $device-md-size) {
+    .timeline__content {
+        margin-left: 0;
+        width: 41%;
+        transform: translateZ(0); // Force Hardware Acceleration
+        
+        &::before {
+            left: 100%;
+            border-color: transparent;
+            border-left-color: white;
+        }        
+    }
+
+    .timeline__content
+    .timeline__read-more {
+        float: left;
+    }
+    .timeline__date {
+        position: absolute;
+        width: 100%;
+        left: 122%;
+        top: 6px;
+    }
+    .timeline__block:nth-child(even) {
+        .timeline__content {
+            float: right;
+            
+            &::before {
+                left: auto;
+                right: 100%;
+                border-color: transparent;
+                border-right-color: white;
+            }
+        }
+        
+        &:nth-child(even) {
+            .timeline__read-more {
+                float: right;
+            }
+        
+            .timeline__date {
+                left: auto;
+                right: 122%;
+                text-align: right;
+            }
+        }
+    }
+    .timeline__content.timeline__content--bounce-in {
+        visibility: visible;
+        animation: bounce-2 0.6s;
+    }
+}
+
+@media only screen and (min-width: $device-md-size) {
+    // inverse bounce effect on even content blocks
+    .timeline__block:nth-child(even) .timeline__content.timeline__content--bounce-in {
+        animation: bounce-2-inverse 0.6s;
+    }
+}
+
+@keyframes bounce-1 {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce-2 {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    60% {
+        opacity: 1;
+        transform: translateX(20px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounce-2-inverse {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    60% {
+        opacity: 1;
+        transform: translateX(-20px);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
