@@ -26,28 +26,28 @@
     },
     "homepage": "https://github.com/ylerjen/webcomp-starter-kit#readme",
     "devDependencies": {
-        "@babel/core": "^7.1.6",
-        "@babel/preset-env": "^7.1.6",
-        "babel-loader": "^8.0.4",
+        "@babel/core": "^7.2.2",
+        "@babel/preset-env": "^7.2.3",
+        "babel-loader": "^8.0.5",
         "copy-webpack-plugin": "^4.6.0",
         "css-loader": "^2.1.0",
         "html-loader": "^0.5.5",
         "jasmine-core": "^3.3.0",
-        "karma": "^3.1.1",
+        "karma": "^3.1.4",
         "karma-chrome-launcher": "^2.2.0",
         "karma-firefox-launcher": "^1.1.0",
         "karma-ie-launcher": "^1.0.0",
         "karma-jasmine": "^2.0.1",
-        "node-sass": "^4.10.0",
-        "rimraf": "^2.6.2",
+        "node-sass": "^4.11.0",
+        "rimraf": "^2.6.3",
         "sass-loader": "^7.1.0",
         "style-loader": "^0.23.1",
-        "webpack": "^4.26.1",
-        "webpack-cli": "^3.1.2",
-        "webpack-dev-server": "^3.1.10"
+        "webpack": "^4.28.1",
+        "webpack-cli": "^3.2.1",
+        "webpack-dev-server": "^3.1.14"
     },
     "dependencies": {
-        "@babel/polyfill": "^7.0.0",
+        "@babel/polyfill": "^7.2.5",
         "document-register-element": "^1.13.1"
     }
 }
